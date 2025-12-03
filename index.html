@@ -291,7 +291,7 @@
             document.getElementById('cart-btn').onclick = () => cartModal.style.display = 'block';
             document.getElementById('close-cart').onclick = () => cartModal.style.display = 'none';
             window.onclick = (e) => { if(e.target==cartModal) cartModal.style.display='none'; };
-            document.getElementById('logoutButton').onclick = () => { localStorage.removeItem('accessToken'); window.location.href='login.html'; };
+            document.getElementById('logoutButton').onclick = () => { localStorage.removeItem('accessToken'); window.location.href='view/login.html'; };
             
             // Botón Pagar Ahora: redirige a pasarela-pago.html
             document.getElementById('pay-btn').onclick = () => {
@@ -302,7 +302,7 @@
                 // Guardar carrito en localStorage para que pasarela-pago.html lo lea
                 localStorage.setItem('shoppingCart', JSON.stringify(cart));
                 // Redirigir a pasarela de pago
-                window.location.href = 'pasarela-pago.html';
+                window.location.href = 'view/pasarela-pago.html';
             };
 
             loadProducts();
