@@ -1,0 +1,221 @@
+/* --- CONFIGURACIÓN BASE --- */
+* { 
+    box-sizing: border-box; 
+}
+
+:root {
+    --primary-color: #e67e22;  /* Naranja Principal (Pumpkin) */
+    --primary-dark: #d35400;   /* Naranja Oscuro para Hover */
+    --dark-text: #333;
+    --light-bg: #f8f9fa;
+    --border-color: #ddd;
+    --icon-color: #999;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--dark-text);
+}
+
+/* --- CONTENEDOR Y TARJETA --- */
+.contenedor {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.register-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* Sombra suave */
+    text-align: center;
+}
+
+/* --- TIPOGRAFÍA --- */
+h2 { 
+    margin: 0; 
+    color: var(--primary-color); 
+    font-size: 2rem; 
+    font-weight: 800; 
+}
+
+.subtitulo { 
+    color: #666; 
+    font-size: 0.95rem; 
+    margin-bottom: 25px; 
+    margin-top: 5px; 
+}
+
+/* --- CAMPOS DE FORMULARIO (INPUTS CON ICONOS) --- */
+.campo {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 0 15px;
+    margin-bottom: 15px;
+    height: 50px; /* Altura fija para consistencia */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Efecto al hacer clic en el input (Borde naranja) */
+.campo:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+}
+
+/* Iconos de la izquierda (Sobre, Usuario, etc) */
+.campo i {
+    color: var(--icon-color);
+    margin-right: 12px;
+    font-size: 1.1rem;
+    min-width: 20px; /* Para alinear texto aunque el icono cambie */
+    text-align: center;
+}
+
+/* El input real (sin bordes para que se funda con el contenedor) */
+.campo input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--dark-text);
+    background: transparent;
+    height: 100%;
+}
+
+.campo input::placeholder {
+    color: #aaa;
+}
+
+/* Icono del Ojo (Ver contraseña) */
+.icono-ojo {
+    cursor: pointer;
+    color: var(--primary-color) !important; /* Naranja para destacar */
+    margin-left: 10px;
+    margin-right: 0 !important;
+    transition: color 0.2s;
+}
+
+.icono-ojo:hover { 
+    color: var(--primary-dark) !important; 
+}
+
+/* --- CHECKBOX Y TÉRMINOS --- */
+.checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    text-align: left;
+    color: #555;
+}
+
+.checkbox input { 
+    margin-right: 10px; 
+    accent-color: var(--primary-color); /* Checkbox naranja */
+    transform: scale(1.1); 
+    cursor: pointer;
+}
+
+.checkbox label {
+    cursor: pointer;
+}
+
+.checkbox a { 
+    color: var(--primary-color); 
+    text-decoration: none; 
+    font-weight: bold; 
+}
+
+.checkbox a:hover {
+    text-decoration: underline;
+}
+
+/* --- BOTÓN DE REGISTRO --- */
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 800; /* Letra gruesa */
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- MENSAJES DE ERROR (Validaciones) --- */
+.error-texto { 
+    color: #c62828; 
+    font-size: 0.85rem; 
+    margin-top: -10px; 
+    margin-bottom: 15px; 
+    display: block; 
+    text-align: left; 
+    padding-left: 5px;
+    font-weight: 500;
+}
+
+/* Caja de mensajes generales (API) */
+.mensaje-caja {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    display: none; /* Se oculta por defecto */
+    text-align: left;
+}
+
+.msg-error { 
+    background-color: #ffebee; 
+    color: #c62828; 
+    border: 1px solid #ef9a9a; 
+}
+
+.msg-success { 
+    background-color: #e8f5e9; 
+    color: #2e7d32; 
+    border: 1px solid #a5d6a7; 
+}
+
+/* --- FOOTER DEL LOGIN --- */
+.login-texto { 
+    margin-top: 25px; 
+    font-size: 0.95rem; 
+    color: #666;
+}
+
+.login-texto a { 
+    color: var(--primary-color); 
+    text-decoration: none; 
+    font-weight: bold; 
+}
+
+.login-texto a:hover { 
+    text-decoration: underline; 
+}

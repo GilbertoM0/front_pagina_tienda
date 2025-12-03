@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffe U</title>
+<link rel="stylesheet" href="../styles/login.css">
+
+<style>
+    
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+	<h1>☕ CoffeU <br/> </h1>
+    <img src="https://scontent.fgdl1-4.fna.fbcdn.net/v/t39.30808-1/309186222_136684652438468_831316909024164630_n.png?stp=dst-png_s200x200&_nc_cat=100&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=ShGG733aeQgQ7kNvwF-Hb6e&_nc_oc=AdmSrtgOE30T1R-4jtJvdW0urkhQXI_9Y0JhYnb0gmMNPOHSa5XilmhnyRP5fHZDbPA&_nc_zt=24&_nc_ht=scontent.fgdl1-4.fna&_nc_gid=Sl8L2n7OXw70t43s5fDgRw&oh=00_AfikEyZGaU9NhlXaq2RTtG1TKVoRdNAI8LSmITp0ROHcCw&oe=693292B2" alt="">
+    <button id="Registrarse" type="button" onclick="window.location.href='register.html'">No tienes Cuenta? <br /> Registrarse!</button>
+</div>
+
+<!-- BANNER (imagen destacada) -->
+<div class="banner">
+	<img src="https://plus.unsplash.com/premium_photo-1675237625862-d982e7f44696?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+</div>
+
+<!-- BLOQUE CENTRAL -->
+	<div class="container">
+		<h2>Iniciar sesión</h2>
+		<form id="loginForm" autocomplete="off">
+			<label for="identificador">Usuario o correo</label>
+			<input id="identificador" name="identificador" type="text" required />
+			<!-- agregado: mensaje de error para identificador -->
+			<div id="identificadorError" class="field-error" style="display:none;"></div>
+
+			<label for="password">Contraseña</label>
+			<input id="password" name="password" type="password" required />
+			<!-- agregado: mensaje de error para contraseña -->
+			<div id="passwordError" class="field-error" style="display:none;"></div>
+
+			<!-- eliminado: navegación inline; el envío será gestionado por JS -->
+			<button type="submit">Entrar</button>
+
+			<div id="msg" class="error" role="alert" aria-live="polite" style="display:none;"></div>
+			<div id="success" class="success" style="display:none;"></div>
+		</form>
+
+		<div id="userContainer" style="display:none;">
+			<div class="user-info" id="userInfo"></div>
+		</div>
+	</div>
+
+	<script src="../js/login2.js"></script>
+
+<!-- PIE DE PÁGINA -->
+<footer>
+    <div>
+        <h4>Problemas?</h4>
+        <a href="#">Factura Electrónica</a>
+        <a href="#">Contacto</a>
+        <a href="#">Servicio al Cliente</a>
+    </div>
+
+    <!--<div>
+        <h4>Legales</h4>
+        <a href="#">Política de Privacidad</a>
+        <a href="#">Términos y Condiciones</a>
+    </div>-->
+
+</footer>
+
+</body>
+</html>

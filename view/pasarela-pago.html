@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pasarela de Pago — Coffeu</title>
+  <link rel="stylesheet" href="../styles/pasarela-pago.css" />
+  <!-- Stripe -->
+  <meta name="stripe-pk" content="pk_test_REEMPLAZA_AQUI" />
+  <script src="https://js.stripe.com/v3/"></script>
+  
+  <!-- Mercado Pago SDK (opcional, descomenta si lo usas) -->
+  <!-- <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script> -->
+  
+  <!-- PayPal SDK (opcional, descomenta si lo usas) -->
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID&currency=USD"></script> -->
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">Coffeu</div>
+      <span class="navbar-status">🔒 Pago 100% seguro</span>
+    </div>
+  </header>
+
+  <main class="checkout-wrapper">
+    <div class="checkout-container">
+      <!-- Columna izquierda: Forma de pago -->
+      <section class="payment-section">
+        <div class="section-header">
+          <h1>Elige cómo pagar</h1>
+          <p>Completa los datos de tu tarjeta o selecciona otra opción</p>
+        </div>
+
+        <!-- Métodos disponibles -->
+        <div class="payment-methods-display">
+          <div class="methods-label">Aceptamos:</div>
+          <div class="payment-logos">
+            <span class="payment-logo visa" title="Visa">💳 VISA</span>
+            <span class="payment-logo mastercard" title="Mastercard">💳 MC</span>
+            <span class="payment-logo amex" title="American Express">💳 AMEX</span>
+            <span class="payment-logo paypal" title="PayPal">🅿️ PayPal</span>
+            <span class="payment-logo mp" title="Mercado Pago">📱 Mercado Pago</span>
+          </div>
+        </div>
+
+        <!-- Tabs de métodos -->
+        <div class="payment-tabs">
+          <button class="payment-tab active" data-method="card" role="tab" aria-selected="true">
+            <span class="tab-icon">💳</span>
+            <span class="tab-text">Tarjeta de crédito/débito</span>
+          </button>
+          <button class="payment-tab" data-method="paypal" role="tab">
+            <span class="tab-icon">🅿️</span>
+            <span class="tab-text">PayPal</span>
+          </button>
+          <button class="payment-tab" data-method="mercadopago" role="tab">
+            <span class="tab-icon">📱</span>
+            <span class="tab-text">Mercado Pago</span>
+          </button>
+        </div>
+
+        <!-- Formulario de pago -->
+        <form id="payment-form" class="payment-form" novalidate>
+          <div class="payment-panels">
+            <!-- Panel Tarjeta -->
+            <div class="payment-panel active" data-panel="card">
+              <!-- Sección Stripe (recomendada) -->
+              <!-- <div class="stripe-section">
+                <p class="section-subtitle">Usa Stripe para mayor seguridad (recomendado)</p>
+                
+                <div class="form-group">
+                  <label for="card-name-stripe" class="form-label">Nombre titular de la tarjeta</label>
+                  <input 
+                    id="card-name-stripe" 
+                    name="cardNameStripe" 
+                    type="text"
+                    autocomplete="cc-name" 
+                    placeholder="Como aparece en tu tarjeta"
+                    class="form-input"
+                  />
+                </div>
+
+                <div class="stripe-container">
+                  <label class="form-label">Datos de la tarjeta</label>
+                  <div id="stripe-card-element" class="stripe-element"></div>
+                  <div id="card-errors" role="alert" class="form-error" aria-live="polite"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="card-postal" class="form-label">Código postal</label>
+                  <input 
+                    id="card-postal" 
+                    name="cardPostal" 
+                    type="text"
+                    autocomplete="postal-code"
+                    placeholder="12345"
+                    class="form-input"
+                  />
+                </div>
+
+                <div class="form-info">
+                  <p>🔒 Cifrado y seguro. Stripe cumple con estándares PCI Level 1</p>
+                </div>
+              </div>
+
+              <div class="form-divider">
+                <span>O ingresa manualmente</span>
+              </div> -->
+
+              <!-- Campos manuales (fallback) -->
+              <div class="manual-card-fields">
+                <p class="section-subtitle">Completa los datos de tu tarjeta</p>
+
+                <div class="form-group">
+                  <label for="card-number" class="form-label">Número de tarjeta</label>
+                  <div class="input-group">
+                    <input 
+                      id="card-number" 
+                      name="cardNumber" 
+                      inputmode="numeric" 
+                      autocomplete="cc-number" 
+                      placeholder="•••• •••• •••• ••••" 
+                      maxlength="19"
+                      class="form-input"
+                    />
+                    <span id="card-brand" class="card-brand-badge">●●●</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="card-name-manual" class="form-label">Nombre titular de la tarjeta</label>
+                  <input 
+                    id="card-name-manual" 
+                    name="cardNameManual" 
+                    type="text"
+                    autocomplete="cc-name" 
+                    placeholder="Como aparece en tu tarjeta"
+                    class="form-input"
+                  />
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="card-exp" class="form-label">Vencimiento</label>
+                    <input 
+                      id="card-exp" 
+                      name="cardExp" 
+                      placeholder="MM/AA" 
+                      maxlength="5" 
+                      autocomplete="cc-exp"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="card-cvc" class="form-label">CVC</label>
+                    <input 
+                      id="card-cvc" 
+                      name="cardCvc" 
+                      inputmode="numeric" 
+                      placeholder="123" 
+                      maxlength="4" 
+                      autocomplete="cc-csc"
+                      class="form-input"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="card-postal-manual" class="form-label">Código postal</label>
+                    <input 
+                      id="card-postal-manual" 
+                      name="cardPostalManual" 
+                      type="text"
+                      autocomplete="postal-code"
+                      placeholder="12345"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="card-country" class="form-label">País</label>
+                    <select 
+                      id="card-country" 
+                      name="cardCountry"
+                      autocomplete="country-name"
+                      class="form-input"
+                    >
+                      <option value="">Selecciona país</option>
+                      <option value="MX">México</option>
+                      <option value="AR">Argentina</option>
+                      <option value="BR">Brasil</option>
+                      <option value="CL">Chile</option>
+                      <option value="CO">Colombia</option>
+                      <option value="CR">Costa Rica</option>
+                      <option value="US">Estados Unidos</option>
+                      <option value="ES">España</option>
+                      <option value="PE">Perú</option>
+                      <option value="VE">Venezuela</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-info-warning">
+                  <p>⚠️ Estos datos estan protegidos con máxima seguridad.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel PayPal -->
+            <div class="payment-panel" data-panel="paypal">
+              <div class="external-payment-info">
+                <p>Serás redirigido a PayPal para completar el pago de forma segura.</p>
+                <button type="button" class="btn-external" id="paypal-pay">
+                  Continuar con PayPal
+                </button>
+              </div>
+            </div>
+
+            <!-- Panel Mercado Pago -->
+            <div class="payment-panel" data-panel="mercadopago">
+              <div class="external-payment-info">
+                <p>Paga con tu cuenta de Mercado Pago o tu tarjeta locales.</p>
+                <button type="button" class="btn-external mp" id="mp-pay">
+                  Continuar con Mercado Pago
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="form-actions">
+            <button type="submit" id="pay-btn" class="btn-primary">
+              <span>Pagar ahora</span>
+            </button>
+            <button type="button" id="cancel-btn" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Columna derecha: Resumen del pedido -->
+      <aside class="order-summary">
+        <div class="summary-box">
+          <h2 class="summary-title">Resumen de tu pedido</h2>
+
+          <div class="summary-items" id="order-items">
+            <!-- Se llena dinámicamente desde JS -->
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total">
+            <span class="total-label">Total a pagar</span>
+            <span class="total-amount" id="order-total">$0.00</span>
+          </div>
+
+          <div class="summary-security">
+            <p>🔒 Compra protegida. Datos encriptados.</p>
+            <p>❓ ¿Problemas? Contacta a soporte en support@coffeu.com</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../js/pasarela-pago.js"></script>
+</body>
+</html>
+

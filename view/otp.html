@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de OTP - CoffeU</title>
+    <link rel="stylesheet" href="../styles/otp.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div>
+                <h1>☕ CoffeU</h1>
+                <small style="color:#666;">Verificación de cuenta</small>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="otp-container">
+            <h2>Verificación de Cuenta</h2>
+            <p class="subtitulo">Ingresa el código de 6 dígitos que enviamos a tu correo.</p>
+
+            <form id="otpForm">
+                <div class="campo">
+                    <input type="text" id="otp" name="otp" placeholder="------" required maxlength="6" inputmode="numeric" pattern="[0-9]{6}">
+                </div>
+
+                <div id="msg" class="feedback-msg error" role="alert"></div>
+                <div id="success-msg" class="feedback-msg success" role="alert"></div>
+
+                <button type="submit" class="btn-verify">Verificar</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const otpForm = document.getElementById('otpForm');
+            const otpInput = document.getElementById('otp');
+            const msgElement = document.getElementById('msg');
+            const successMsgElement = document.getElementById('success-msg');
+            
+            // Extraer el email de la URL para el reenvío
+            const urlParams = new URLSearchParams(window.location.search);
+            const email = urlParams.get('email');
+
+            otpForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Limpiar mensajes previos
+                msgElement.style.display = 'none';
+                successMsgElement.style.display = 'none';
+
+                const otp = otpInput.value;
+
+                if (!otp || otp.length !== 6 || !/^[0-9]{6}$/.test(otp)) {
+                    showMessage(msgElement, 'Por favor, ingresa un código OTP válido de 6 dígitos.');
+                    return;
+                }
+
+                // Aquí va la lógica para verificar el OTP con el backend
+                // Esta es una simulación, debes reemplazarla con tu llamada a la API
+                try {
+                    // SIMULACIÓN DE LLAMADA A API
+                    console.log('Verificando OTP:', otp, 'para el email:', email);
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // Simular delay de red
+
+                    // Lógica de simulación: el OTP '123456' es correcto
+                    if (otp === '123456') {
+                        showMessage(successMsgElement, '¡Verificación exitosa! Redirigiendo...');
+                        // Redirigir a la página de login o al home
+                        setTimeout(() => {
+                            window.location.href = 'login.html'; 
+                        }, 2000);
+                    } else {
+                        showMessage(msgElement, 'El código OTP es incorrecto. Inténtalo de nuevo.');
+                        otpInput.focus();
+                    }
+
+                } catch (error) {
+                    console.error('Error en la verificación:', error);
+                    showMessage(msgElement, 'Ocurrió un error al verificar el código. Por favor, intenta más tarde.');
+                }
+            });
+
+            function showMessage(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+/* BODY
+   Estilos generales de la página: reset de márgenes, fuente por defecto y fondo.
+   Aquí se controlan reglas globales que afectan a todo el documento.
+*/
+body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #ffffff;
+        margin-bottom: 0%;
+    }
+
+
+
+    /* HEADER
+       Barra superior con fondo naranja. Contiene el logo a la izquierda y el botón
+       de sesión/registro a la derecha. Usamos flexbox para la disposición horizontal
+       y position: sticky para mantenerlo visible al hacer scroll.
+    */
+    .header {
+        background: #FF6B0E;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+    }
+
+    /* LOGO EN HEADER
+       Ajustes del tamaño y comportamiento del elemento <img> del logo.
+       Se usa object-fit para mantener la proporción y margin para eliminar offsets.
+    */
+    .header img {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        object-fit: contain;
+    }
+
+    /* BOTÓN DEL HEADER
+       Estilo del botón de iniciar sesión/registro: fondo blanco, bordes redondeados
+       y cursor para indicar interactividad.
+    */
+    .header button {
+        width: auto;
+        background: #fff;
+        color: #FF6B0E; /* mismo naranja del header */
+        border: none;
+        padding: 10px 16px;
+        font-weight: 700;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    /* BANNER
+       Sección visual grande debajo del header. Mantiene la <img> en el HTML; la imagen
+       ocupa todo el contenedor y añadimos un overlay oscuro con ::before para oscurecerla.
+    */
+    .banner {
+        position: relative;
+        width: 100%;
+        min-height: 420px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .banner img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    /* overlay oscuro sobre la imagen */
+    .banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 100%);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+
+
+    /* PESTAÑAS ENTREGA / RECOGER
+       Estilos para las tabs: disposición horizontal, espaciado y estado activo.
+    */
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tab {
+        padding: 10px 25px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .active {
+        background: #c8102e;
+        color: white;
+        border-color: #c8102e;
+    }
+
+    /* INPUTS GENERALES
+       Estilos base para campos de texto: padding y comportamiento responsivo.
+    */
+    input {
+        padding: 12px;
+        max-width: 100%;
+        border-radius: 4px;
+        border: 1px solid #bbb;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+
+    /* FOOTER
+       Pie de página con fondo oscuro. Disposición en columnas y estilos de enlaces.
+    */
+    footer {
+        background: #111;
+        color: #fff;
+        padding: 40px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        text-align: left;
+    }
+
+    /* SECCIONES DENTRO DEL FOOTER
+       Cada bloque dentro del footer tiene un ancho fijo y espaciado interno.
+    */
+    footer div {
+        width: 200px;
+        margin: 10px;
+    }
+
+    /* TITULOS DEL FOOTER
+       Color y espaciado de los headings dentro del footer para destacarlos.
+    */
+    footer h4 {
+        margin-bottom: 10px;
+        color: #FF6B0E;
+    }
+
+    /* ENLACES DEL FOOTER
+       Ajustes visuales de los enlaces: color, decoración y separación.
+    */
+    footer a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        margin-bottom: 6px;
+    }
+
+    /* LOGIN CARD (debajo del banner)
+       Card que contiene el formulario de inicio de sesión. Se solapa ligeramente con
+       el banner mediante margin negativo y tiene sombra para destacarse.
+    */
+    .container {
+        width: 100%;
+        max-width: 420px;
+        background: #fff;
+        margin: -80px auto 40px; /* solapa el banner hacia abajo */
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.14);
+        text-align: left;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 3; /* por encima del overlay */
+    }
+
+    /* ENCABEZADO DEL CARD
+       Estilo del h2 dentro del card de login: tamaño y centrado.
+    */
+    .container h2 {
+        margin: 0 0 18px;
+        font-size: 22px;
+        text-align: center;
+        color: #111;
+    }
+
+    /* ETIQUETAS DEL FORMULARIO
+       Estilo de los <label>: tamaño de fuente y color secundario.
+    */
+    .container label {
+        display: block;
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 6px;
+    }
+
+    /* CAMPOS DEL FORMULARIO
+       Estilos para inputs de texto y contraseña dentro del card: ancho completo,
+       padding y fondo claro para mejor legibilidad.
+    */
+    .container input[type="text"],
+    .container input[type="password"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 4px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 14px;
+        background: #fafafa;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    /* BOTÓN DE ENVÍO DEL LOGIN
+       Botón principal con color naranja consistente con la identidad (header).
+       Ancho completo y borde redondeado.
+    */
+    .container button[type="submit"] {
+        width: 100%;
+        background: #FF6B0E; /* mismo naranja del header */
+        color: #fff;
+        border: none;
+        padding: 12px 16px;
+        font-weight: 700;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    /* MENSAJES (ERROR / SUCCESS)
+       Estilos para mostrar mensajes de error y éxito dentro del formulario.
+    */
+    .container .error {
+        color: #FF6B0E;
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+    .container .success {
+        color: #2a9d34;
+        font-size: 13px;
+        margin-top: 8px;
+    }
+
+    /* Mensajes pequeños para campos (error junto al input) */
+.field-error {
+    color: #c8102e;
+    font-size: 13px;
+    margin-top: 6px;
+    display: none;
+}
+
+    /* MEDIA QUERIES
+       Ajustes responsivos para pantallas pequeñas: ancho del card, altura del banner
+       y reducción del solapamiento.
+    */
+    @media (max-width: 420px) {
+        .container {
+            width: 92%;
+            margin: 8px auto 24px; /* evitar solapamiento excesivo en móvil */
+            padding: 18px;
+            position: relative;
+            z-index: 3;
+        }
+        .banner {
+            min-height: 260px;
+        }
+        .banner::before {
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.6) 100%);
+        }
+    }
