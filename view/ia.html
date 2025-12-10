@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA - Dashboard de Análisis de Productos</title>
+    <link rel="stylesheet" href="../styles/ia.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 IA - Dashboard de Análisis</h1>
+            <p>Análisis inteligente de productos y tendencias</p>
+        </header>
+
+        <!-- FORMULARIO POST -->
+        <div class="form-section">
+            <h2>📝 Registrar Producto</h2>
+            <div class="form-group">
+                <div>
+                    <label for="producto">Nombre del Producto:</label>
+                    <input type="text" id="producto" placeholder="ej: Cold coffee" required>
+                </div>
+                <div>
+                    <label for="stock">Stock Actual:</label>
+                    <input type="number" id="stock" placeholder="ej: 35" required>
+                </div>
+                <div>
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" required>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn-submit" onclick="enviarProducto()">📤 Enviar Producto</button>
+                <button class="btn-fetch" onclick="obtenerAnalisis()">📊 Cargar Análisis</button>
+            </div>
+            <div id="status-message" class="status-message"></div>
+        </div>
+
+        <!-- DASHBOARD GET -->
+        <div id="dashboard-container"></div>
+    </div>
+
+    <script src="../js/ia.js"></script>
+</body>
+</html>
