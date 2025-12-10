@@ -28,6 +28,14 @@
         .header-content { display: flex; justify-content: space-between; align-items: center; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         h1 { margin: 0; color: var(--primary-color); font-size: 1.8rem; font-weight: 800; }
+        .section-header { display:flex; justify-content:space-between; align-items:center; margin-top: 30px; }
+        .section-header h2 { margin: 0; color: var(--dark-text); border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px; }
+        .btn-predict {
+            background: var(--primary-color); color: white; border: none;
+            padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(230, 126, 34, 0.2);
+        }
+        .btn-predict:hover { background: var(--primary-dark); transform: translateY(-1px); }
 
         /* Botones Header */
         .btn-cart-header {
@@ -147,9 +155,10 @@
 
     <main class="container">
         <div id="error-msg"></div>
-        <h2 style="margin-top: 30px; color: var(--dark-text); border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 10px;">
-            Nuestros Productos
-        </h2>
+        <div class="section-header">
+            <h2>Nuestros Productos</h2>
+            <button id="predict-btn" class="btn-predict" onclick="window.location.href='view/ia.html'">PredictInventario</button>
+        </div>
         <div id="product-list" class="product-grid">
             <p>Cargando...</p>
         </div>
@@ -174,6 +183,7 @@
         </div>
     </div>
 
+    <script src="js/orden.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const productList = document.getElementById('product-list');
@@ -293,16 +303,9 @@
             window.onclick = (e) => { if(e.target==cartModal) cartModal.style.display='none'; };
             document.getElementById('logoutButton').onclick = () => { localStorage.removeItem('accessToken'); window.location.href='view/login.html'; };
             
-            // Botón Pagar Ahora: redirige a pasarela-pago.html
+            // Botón Pagar Ahora: crea orden en backend y redirige a pasarela-pago.html
             document.getElementById('pay-btn').onclick = () => {
-                if(cart.length === 0) {
-                    alert('Tu carrito está vacío. Agrega productos antes de pagar.');
-                    return;
-                }
-                // Guardar carrito en localStorage para que pasarela-pago.html lo lea
-                localStorage.setItem('shoppingCart', JSON.stringify(cart));
-                // Redirigir a pasarela de pago
-                window.location.href = 'view/pasarela-pago.html';
+                procesarPago(cart);
             };
 
             loadProducts();
